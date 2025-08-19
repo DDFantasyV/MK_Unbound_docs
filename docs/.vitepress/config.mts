@@ -2,7 +2,6 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  base: '/repo/',
   title: "MK Unbound docs",
   description: "A VitePress Site",
   themeConfig: {
