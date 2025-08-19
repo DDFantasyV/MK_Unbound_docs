@@ -4,15 +4,14 @@ layout: home
 
 hero:
   name: "MK Unbound docs"
-  text: "A VitePress Site"
-  tagline: My great project tagline
+  tagline: A Quick Access Site for Unbound Developer
   actions:
     - theme: brand
       text: Get Started
       link: /guide/
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: GitHub
+      link: https://github.com/DDFantasyV/MK_Unbound_docs
 
 features:
   - title: Feature A

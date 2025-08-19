@@ -2,25 +2,25 @@
 
 [[toc]]
 
-Display object (DO) is a general name for all screen objects. They are displayed in a list (display sheet) in the order of calling, in coordinates [x:0;y:0]. The content and display, as well as the set of properties, are different for different display objects.
+Display object (DO) is a general name for all screen objects. They are displayed in a list (display sheet) in the order of calling, in coordinates `[x:0;y:0]`. The content and display, as well as the set of properties, are different for different display objects.
 
 The main feature of the unbound markup language is the creation, configuration and addition of instances of display objects (DO) to the corresponding target object in the display list. The target object is the parent DO for the current layout fragment. All DOs are divided into 2 groups by the presence/absence of a layout system. The layout system is responsible for positioning DO on the stage.
 
-## Format
+## Usage
 
-```
+```python
 (block
     (tf
     )
 )
 ```
 
-where the block node is the target object for DO tf .
+where the `block` node is the target object for DO `tf` .
 
-## Display objects list
+## DO list
 
-| Top level methods | Description |
-| :---------------: | :---------: |
+| Top level method | Description |
+| :--------------: | :---------: |
 | sprite | Create a Sprite instance |
 | symbol | Create a Symbol (MovieClip or Sprite) instance by name from a library |
 | tf | Create an instance of a TextField text block |
@@ -44,9 +44,9 @@ Some properties are available for all displayed objects, such as:
 
 ## Example
 
-Example of creating a Sprite of size 500x500px with coordinates [x=100; y=200] and opacity of 50%:
+Example of creating a Sprite of size 500x500px with coordinates `[x=100; y=200]` and opacity of `50%`:
 
-```
+```python
 (sprite
     (width = 500)
     (height = 500)
