@@ -23,6 +23,7 @@ export default defineConfig({
       {
         text: 'Basic Function',
         items: [
+          { text: 'General', link: '/basic-function/' },
           { text: 'Build Stage', link: '/basic-function/build-stage' },
           { text: 'Element Definition', link: '/basic-function/element-definition' },
           { text: 'Scope', link: '/basic-function/scope' },
@@ -30,7 +31,27 @@ export default defineConfig({
           { text: 'Controller', link: '/basic-function/controller' },
           { text: 'Style Display Object', link: '/basic-function/style-display-object' },
         ]
-      }
+      },
+      {
+        text: 'Declarative Markup Language and S-Expression',
+        items: [
+          { text: 'General', link: '/declarative-markup-language-and-s-expression/' },
+          { text: 'Macro', link: '/declarative-markup-language-and-s-expression/macro' },
+          { text: 'Layout Execution', link: '/declarative-markup-language-and-s-expression/layout-execution' },
+          { text: 'Data Type', link: '/declarative-markup-language-and-s-expression/data-type' },
+          { text: 'Enum', link: '/declarative-markup-language-and-s-expression/enum' },
+        ]
+      },
+      {
+        text: 'Markup language construct',
+        items: [
+          { text: 'General', link: '/markup-language-construct/' },
+          { text: 'Constant', link: '/markup-language-construct/constant' },
+          { text: 'Controller', link: '/markup-language-construct/controller' },
+          { text: 'Element', link: '/markup-language-construct/element' },
+          { text: 'Event', link: '/markup-language-construct/event' },
+        ]
+      },
     ],
 
     socialLinks: [

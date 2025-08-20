@@ -4,9 +4,9 @@
 
 ## General
 
-Bindings are responsible for simple data synchronization (property, method call, event dispatch). There are three synchronization elements:
+Bindings are responsible for simple data synchronization (property, call method, event dispatch). There are three synchronization elements:
 - property
-- method call
+- call method
 - event
 
 To do their job, bindings take a snapshot of the execution data and use that snapshot when evaluating expressions so that all the data that was available at the time the binding was initialized is available in those expressions.
