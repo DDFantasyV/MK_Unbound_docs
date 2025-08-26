@@ -2,7 +2,7 @@
 
 [[toc]]
 
-Elements and blocks have Style, which allows you to customize their visual presentation, such as changing sizes, applying filters, etc.
+`Elements` and `blocks` have `Style`, which allows you to customize their visual presentation, such as changing sizes, applying filters, etc.
 
 ## DO list
 
@@ -12,7 +12,7 @@ Elements and blocks have Style, which allows you to customize their visual prese
 
 ## Example
 
-Each block has its own set of style properties. For example, the tf block can be assigned font, size and color.
+Each block has its own set of `style` properties. For example, `tf` block can be assigned `font`, `size` and `color`.
 
 ```python
 (tf
@@ -24,7 +24,7 @@ Each block has its own set of style properties. For example, the tf block can be
 )
 ```
 
-Also, by changing the style properties : paddings, margins, position, flow, etc., you can control the positioning of the block.
+Also, by changing `style` properties: `paddings`, `margins`, `position`, `flow`, etc., you can control the positioning of the block.
 
 ```python
 (block
@@ -38,7 +38,7 @@ Also, by changing the style properties : paddings, margins, position, flow, etc.
 ```
 
 > [!WARNING]
-> Style is only available to objects with layout-system, namely element with the layout=true parameter and various blocks inherited from BaseBlock in c++.
+> `Style` is only available to objects with `layout-system`, namely element with the layout=true parameter and various blocks inherited from `BaseBlock` in `c++`.
 
 > [!CAUTION]
 > Accessing the style property of DO without layout system results in an error: 

@@ -2,9 +2,9 @@
 
 [[toc]]
 
-Controller is an atomic functionality over a target object. Allow you to extend the functionality by executing custom logic over the object. 
+`Controller` is an atomic functionality over `target-object`. Allow you to extend the functionality by executing custom logic over the object. 
 
-Controller is implemented in C++. 
+`Controller` is implemented in `C++`. 
 
 ## DO list
 

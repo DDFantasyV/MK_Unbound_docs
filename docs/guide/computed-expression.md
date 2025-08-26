@@ -1,17 +1,15 @@
 # Computed Expression
 
-Expressions are intended for simple data processing, forming the value of properties or method call parameters. Expressions can use variables and events declared in scope, as well as numeric, string, logical literals and use operators.
+Expressions are intended for simple data processing, forming the value of properties or method call parameters. Expressions can use `variables` and `events` declared in scope, as well as numeric, string, logical literals and use operators.
 
-::: details Example 1
-```python
+::: code-group
+```python [Example 1]
 (tf
     (text = "' ' + tankmanName + ' — '")
 )
 ```
-:::
 
-::: details Example 2
-```python
+```python [Example 2]
 (mc forsage_progress_bar
 	(style (position  = "absolute"))
 	...
@@ -19,9 +17,8 @@ Expressions are intended for simple data processing, forming the value of proper
 ```
 :::
 
-Such expressions will be evaluated during layout execution, directly when calling methods. The expression can be used both for calling a method, as an example gotoAndStop, and for calling s-expression:
+Such expressions will be evaluated during layout execution, directly when calling methods. The expression can be used both for calling a method, as an example `gotoAndStop`, and for calling `s-expression`:
 
-::: details Example
 ```python
 (def element AircraftForsage(activeSquadron:number) layout=true
 	(scope
@@ -30,12 +27,11 @@ Such expressions will be evaluated during layout execution, directly when callin
     )
 )
 ```
-:::
 
 > [!IMPORTANT]
 > It is important to understand that these expressions will be calculated once and no one will monitor the data update; to monitor the data update, you need to use the binding mechanism.
 
-Since the action script syntax is taken as a basis, the corresponding operators can be used in expressions.
+Since `action script` syntax is taken as a basis, the corresponding operators can be used in expressions.
 
 ::: code-group
 ```[+, -, /, *, %]

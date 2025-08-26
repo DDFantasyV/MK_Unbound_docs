@@ -14,11 +14,11 @@ hero:
       link: https://github.com/DDFantasyV/MK_Unbound_docs
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: Visualization Tutorial
+    details: Based on MatroseFuchs & BattleFrame's Posts
+  - title: Easy to Index
+    details: Built-in Directory and Search Engine
+  - title: Strong Operability
+    details: Almost All Functions have Introductions and Examples
 ---
 

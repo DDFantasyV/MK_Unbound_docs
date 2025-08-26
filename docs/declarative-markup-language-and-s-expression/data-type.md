@@ -13,7 +13,7 @@ The introduction of typing allows for better error control.
 | str | string | 'text123' | single quotes |
 | dict | dictionary | `{a: 1, b: 2}` |  |
 | array | array | `[1, 2, 3]` |  |
-| expression | expression to be calculated | `a ? 1 : 2` | in double quotes <br> constant cannot be defined in expressions |
+| expression | expression to be calculated | `a ? 1 : 2` | in double quotes<br>constant cannot be defined in expressions |
 | gfx | pointer to any GFx::Value | - | constant cannot be defined in markups and in expressions |
 | cpp | a complex object such as a collection or entity | - |  |
 

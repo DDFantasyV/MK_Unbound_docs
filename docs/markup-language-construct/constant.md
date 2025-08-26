@@ -67,7 +67,7 @@ To declare a global constant, use the `def` function. The argument field is pass
 
 ## Local constant
 
-These constants are declared in the scope of the element and can only be used within the element.
+These constants are declared in the `scope` of `element` and can only be used within `element`.
 
 ### Example
 ```python

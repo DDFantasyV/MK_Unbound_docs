@@ -130,8 +130,8 @@ Temporarily add an instance of the element to the stage, which will be removed f
 - `renderer`, `args`, `exprs`, `enabled`, `layout` - behavior is similar to the behavior in `$Instance` controller.
 - `bindcall create` - define the trigger event for the controller. The controller is called when the specified event is caught in the scope. In the example above, we access `$datahub` directly, so there is no need to create a variable or event separately for this event (but this is not recommended, since the component may not be present at the time of initialization and the subscription will not occur. It is better to declare an entity, component and then access the event inside the component variable). 
 - `lifetime` defines the lifetime of the element on the stage.
-> [!NOTE] 
-> If not specified, the default value of `lifetime` is 15 seconds.
+    > [!NOTE] 
+    > If not specified, the default value of `lifetime` is 15 seconds.
 :::
 
 ## $Repeat
@@ -186,67 +186,67 @@ Animate the parent display object or the value of a variable in a scope.
 Available controller methods with examples of filling parameters:
 
 - `play` - start one animation.
-::: details
-::: code-group
-```python [Example 1]
-(play
-    duration=1.0  # Animation duration in seconds. Required and must be greater than zero.
-    to={ alpha:1, y:0, visible:true }  # Final animation value. Required if name is not passed (see below), otherwise empty by default.
-    from={ alpha:0, y:50, visible:false }  # Animation starting values. If not specified ,the animation will start with the values in the scope. Empty by default.
-    name='AnimX'  # Name of a previously declared animation. For example: (def animation AnimX () from={x:0} to={x:300}). Empty by default.
-    delay=2.0  # Specify the delay before playing the animation. Default to 0.0.
-    easing="Easing.quint_out"  # Function to change the animation. Empty by default (Easing.line).
-    repeatCount=1  # Number of animation repetitions. The parameter specifies the number of additional repetitions, i.e. if `repeatCount=0`, the animation will be played once. -1 - The animation will be played continuously. The default value is 0.
-    reverse=false  # Condition for playing the animation in the opposite direction, to → from (subject to the presence of both fields, or the presence of name). Default is false.
-    callbacks="{  # Animation callback. By default, callbacks are not set.
-        onComplete: onCompleteEvent,  # Raise when the animation has finished.
-        onStart: onStartEvent,  # Raise when the animation has started.
-        onRepeat: onRepeatEvent,  # Raise every time the animation starts from the beginning. The callback is passed `repeatCount` parameter - the number of remaining repetitions. 
-        onUpdate: onUpdateEvent,  # Raise every time the animation changes the value of the parameter. The callback is passed a dict with the current values of the parameters passed to `to` and `from` .
-    }"
-    id='anmId'  # Animation id, by which it can be stopped via the stop method. By default, id = "".
-)
-```
+    ::: details
+    ::: code-group
+    ```python [Example 1]
+    (play
+        duration=1.0    # Animation duration in seconds. Required and must be greater than zero.
+        to={ alpha:1, y:0, visible:true }   # Final animation value. Required if name is not passed (see below), otherwise empty by default.
+        from={ alpha:0, y:50, visible:false }   # Animation starting values. If not specified ,the animation will start with the values in the scope. Empty by default.
+        name='AnimX'    # Name of a previously declared animation. For example: (def animation AnimX () from={x:0} to={x:300}). Empty by default.
+        delay=2.0   # Specify the delay before playing the animation. Default to 0.0.
+        easing="Easing.quint_out"   # Function to change the animation. Empty by default (Easing.line).
+        repeatCount=1   # Number of animation repetitions. The parameter specifies the number of additional repetitions, i.e. if `repeatCount=0`, the animation will be played once. -1 - The animation will be played continuously. The default value is 0.
+        reverse=false   # Condition for playing the animation in the opposite direction, to → from (subject to the presence of both fields, or the presence of name). Default is false.
+        callbacks="{  # Animation callback. By default, callbacks are not set.
+            onComplete: onCompleteEvent,    # Raise when the animation has finished.
+            onStart: onStartEvent,  # Raise when the animation has started.
+            onRepeat: onRepeatEvent,    # Raise every time the animation starts from the beginning. The callback is passed `repeatCount` parameter - the number of remaining repetitions. 
+            onUpdate: onUpdateEvent,    # Raise every time the animation changes the value of the parameter. The callback is passed a dict with the current values of the parameters passed to `to` and `from` .
+        }"
+        id='anmId'  # Animation id, by which it can be stopped via the stop method. By default, id = "".
+    )
+    ```
 
-```python [Example 2]
-(scope
-    (var longTapArc:number = 0)
-    (controller $Animation
-        (bindcall play  duration= 0.5
-                        from    = { longTapArc:0 }
-                        to      = { longTapArc:360 }
-                        (bind enabled "keyState == Key.DOWN")
+    ```python [Example 2]
+    (scope
+        (var longTapArc:number = 0)
+        (controller $Animation
+            (bindcall play  duration= 0.5
+                            from    = { longTapArc:0 }
+                            to      = { longTapArc:360 }
+                            (bind enabled "keyState == Key.DOWN")
+            )
         )
     )
-)
-# If (keystate == Key.DOWN), then changes the value of longTapArc from 0 to 360 in 0.5 sec
-```
+    # If (keystate == Key.DOWN), then changes the value of longTapArc from 0 to 360 in 0.5 sec
+    ```
 
-```python [Example 3]
-(block
-    (visible = "tacticalMap")
-    (style 
-        (height = 100)
-        (width = 100)
-        (backgroundColor = C_ALLY)
-    )
+    ```python [Example 3]
+    (block
+        (visible = "tacticalMap")
+        (style 
+            (height = 100)
+            (width = 100)
+            (backgroundColor = C_ALLY)
+        )
 
-    (controller $Animation
-        (bindcall play 
-            duration=0.15
-            delay="tacticalMap ? 0.1 : 0"
-            easing="Easing.cubic_out" 
-            from={ alpha:0, y:50, visible:false } 
-            to={ alpha:1, y:0, visible:true } 
-            reverse="!tacticalMap"
-            (bind trigger "tacticalMap")
+        (controller $Animation
+            (bindcall play 
+                duration=0.15
+                delay="tacticalMap ? 0.1 : 0"
+                easing="Easing.cubic_out" 
+                from={ alpha:0, y:50, visible:false } 
+                to={ alpha:1, y:0, visible:true } 
+                reverse="!tacticalMap"
+                (bind trigger "tacticalMap")
+            )
         )
     )
-)
-# If the tacticalMap variable changes its value - the appearance is played out
-# if the tacticalMap changes its value to the original - the disappearance is played out
-```
-:::
+    # If the tacticalMap variable changes its value - the appearance is played out
+    # if the tacticalMap changes its value to the original - the disappearance is played out
+    ```
+    :::
 
 - `bindcall` specifies that the animation should be started according to the conditions specified in `bind enabled`, `bind trigger`, or `event`.
 - `duration` specifies the duration of the animation in seconds.
@@ -255,22 +255,20 @@ Available controller methods with examples of filling parameters:
 - `to` final animation value. Required field.
 - `reverse` conditions for playing the animation in the opposite direction, to → from (provided that both fields are present).
 - `trigger` conditions for triggering the animation when the condition value changes. The difference from  enabled  is that enabled is triggered only when the `expression==toBoolean(true)`.
-> [!IMPORTANT]
-> At the moment of delay launch, the controller has already accepted the values of all variables at all positions. If the values of the variables have changed by the end of the delay, the controller will not know about it.
-
+    > [!IMPORTANT]
+    > At the moment of delay launch, the controller has already accepted the values of all variables at all positions. If the values of the variables have changed by the end of the delay, the controller will not know about it.
 - `killAll` - property, when animation starts, destroys all active animations of the object
-
-::: details
-```python
-(controller $Animation
-        (bindcall play  duration = "HEALTH_ANI_MIN"
-                        killAll=true
-                        watch = false
-                        easing="Easing.quad_in"
-.....
-)
-```
-:::
+    ::: details
+    ```python
+    (controller $Animation
+            (bindcall play  duration = "HEALTH_ANI_MIN"
+                            killAll=true
+                            watch = false
+                            easing="Easing.quad_in"
+    .....
+    )
+    ```
+    :::
 
 ### Easing
 

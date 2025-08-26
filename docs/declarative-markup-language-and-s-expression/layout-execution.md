@@ -4,7 +4,7 @@
 
 The engine that performs the layout is maximally abstracted from any specific functionality. It has no knowledge of sprites, scopes, etc.
 
-There is such a thing as a target object. This is the current object on which the actions described by s-expressions are performed. S-expressions differ by type (method, setter, getter) and nothing more (even definition at this level will be just a method).
+There is such a thing as a target object. This is the current object on which the actions described by s-expressions are performed. S-expressions differ by type (method, setter, getter) and nothing more (even `definition` at this level will be just a method).
 
 The first execution of the layout occurs after loading the file text into the framework. After parsing the file, we have a list of s-expressions that are contained in the file (usually these are definitions, assignments of global constants). To execute this list of s-expressions, a fake object is created (although in fact these methods do not need it).
 
@@ -15,17 +15,17 @@ During the execution of s-expressions, the target object changes. This happens w
 ## Example
 
 ```python
-# the def method does not return anything, so its nested s-expressions will not be executed
-# the def method will save them for further use when constructing the definition
+# `def` method does not return anything, so its nested s-expressions will not be executed
+# `def` method will save them for further use when constructing the definition
 # s-expressions in the body of `CommanderPersonalInfo` definition will be executed on `sprite` object
 # when constructing `CommanderPersonalInfo` element
 (def element CommanderPersonalInfo (command:str, toggle:bool = false) layout=true
     # target-object - `Sprite`
-    # `tf` method will create `TextField` , add it to `display list` of the current target-object
+    # `tf` method will create `TextField` , add it to `display list` of the current `target-object`
     # return created object
     (tf
         # target-object - `TextField`, which the `tf` method returned
-        # `style` returns `StylePreset` for the target-object
+        # `style` returns `StylePreset` for `target-object`
         # `style` will have `width` property set to 100
         (style
             (width = 100px)
@@ -34,7 +34,7 @@ During the execution of s-expressions, the target object changes. This happens w
   
   
     # `mc` method will create an object of `ResearchPageBGFlags` class from `linkage` library
-    # add it to the `display list` of the current target-object, which is now `Sprite`
+    # add it to `display list` of the current target-object, which is now `Sprite`
     # return created object
     (mc 'ResearchPageBGFlags'
         # target-object - `ResearchPageBGFlags` (inherited from `MovieClip`)

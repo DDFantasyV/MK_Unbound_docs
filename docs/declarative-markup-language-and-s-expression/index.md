@@ -22,14 +22,12 @@ The layout consists of S-expressions. There are 4 types of S-expressions, each o
 )
 ```
 
-> [!NOTE]
-> `bind` - `<method name>`
->
-> `isEnabled`, `"$event.enabled"` - `<positional argument value>*`
->
-> `init=false` - `<named argument>*`
->
-> `(event "isEnableChanged")` - `nested s-expression+`
+::: details
+- `bind` - `<method name>`
+- `isEnabled`, `"$event.enabled"` - `<positional argument value>*`
+- `init=false` - `<named argument>*`
+- `(event "isEnableChanged")` - `nested s-expression+`
+:::
 
 ## Add definition
 

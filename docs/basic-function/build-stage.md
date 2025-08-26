@@ -44,7 +44,7 @@ Some properties are available for all displayed objects, such as:
 
 ## Example
 
-Example of creating a Sprite of size 500x500px with coordinates `[x=100; y=200]` and opacity of `50%`:
+Example of creating a `Sprite` of size `500x500px` with coordinates `[x=100; y=200]` and opacity of `50%`:
 
 ```python
 (sprite

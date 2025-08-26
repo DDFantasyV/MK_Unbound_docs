@@ -25,19 +25,13 @@ To do their job, bindings take a snapshot of the execution data and use that sna
 ### Property & Method
 
 All bindings have common properties:
-
-| Property name | Description |
-| :-----------: | :---------: |
-| watch | whether to watch for changes in the value of scope properties that are used in expressions |
-| init | whether to perform an action (corresponding to the binding type) when initializing the binding |
-| on | the target object event that will trigger the binding |
-| enabled | can be used to enable and disable the trigger, can accept expressions like (enabled = "$event.buttonIdx == 1") |
+- `watch` - whether to watch for changes in the value of scope properties that are used in expressions
+- `init` - whether to perform an action (corresponding to the binding type) when initializing the binding
+- `on` - the target object event that will trigger the binding
+- `enabled` - can be used to enable and disable the trigger, can accept expressions like (enabled = "$event.buttonIdx == 1")
 
 and public method:
-
-| Method name | Description |
-| :---------: | :---------: |
-| event | Add a custom event as a trigger to the binding |
+- `event` - add a custom event as a trigger to the binding
 
 ## Bind
 
@@ -45,7 +39,7 @@ You can synchronize both a variable from the scope and a property of the target 
 
 ### Usage
 
-```
+```python
 (bind scopeVar|property "scopeVar|$target|$event.field" [init=false|true] [watch=false|true] [on='scopeEventName|flashEventName|cppEventName']|[(event "scopeEventName")] [(enabled "expression")])
 ```
 
@@ -54,7 +48,7 @@ You can synchronize both a variable from the scope and a property of the target 
 
 ### Example
 
-- To synchronize a variable from a scope, bind must be placed in the scope.
+- To synchronize a variable from `scope`, `bind` must be placed in `scope`.
 ::: details
 ```python
 (scope
@@ -65,7 +59,7 @@ You can synchronize both a variable from the scope and a property of the target 
 )
 ```
 :::
-- To synchronize a property of a target object, bind must be called on the target object whose property we are synchronizing.
+- To synchronize a property of `target-object`, bind must be called on `target-object` whose property we are synchronizing.
 ::: details
 ```python
 (scope
@@ -76,80 +70,80 @@ You can synchronize both a variable from the scope and a property of the target 
 )
 ```
 :::
-In both cases, changing any variable in the expression causes it to be evaluated, and the result is written to the synchronized variable or property. This behavior can be controlled via the `watch=true|false` parameter.
+In both cases, changing any variable in the expression causes it to be evaluated, and the result is written to the synchronized variable or property. This behavior can be controlled via `watch=true|false` parameter.
 
 The second way to trigger expression synchronization is to subscribe to an event. There are 2 supported ways to subscribe to an event.
 
-- Pass the event name as a string to the `on` argument. Used to subscribe to flash events or events that are propagated from core c++. If this event has arguments, they can be accessed through the `$event` object. At the time of execution of the expression in bind, all variables must already be known. But the arguments will get into `$event` if the event is propagated. Since there was no event yet, but `$event` is not defined at the start, for this purpose all types of bindings have the `init=true|false` parameter, which allows you to configure the execution of the expression during initialization.
-::: details
-```python
-(tf
-    (class GrandTitleTextStyle)
-    (text = 'default text')
-    (bind text "$event.localX" init=false on='click')
-)
-```
-:::
+- Pass the event name as a string to `on` argument. Used to subscribe to flash events or events that are propagated from core c++. If this event has arguments, they can be accessed through `$event` object. At the time of execution of the expression in bind, all variables must already be known. But the arguments will get into `$event` if the event is propagated. Since there was no event yet, but `$event` is not defined at the start, for this purpose all types of bindings have the `init=true|false` parameter, which allows you to configure the execution of the expression during initialization.
+    ::: details
+    ```python
+    (tf
+        (class GrandTitleTextStyle)
+        (text = 'default text')
+        (bind text "$event.localX" init=false on='click')
+    )
+    ```
+    :::
 - Pass event object from scope.
-::: details
-```python
-(scope
-    (event onCustomEvent)
-)
-(tf
-    (bind text "$event.localY" (event "onCustomEvent"))
-    (dispatch onCustomEvent on='click')
-)
-```
-:::
+    ::: details
+    ```python
+    (scope
+        (event onCustomEvent)
+    )
+    (tf
+        (bind text "$event.localY" (event "onCustomEvent"))
+        (dispatch onCustomEvent on='click')
+    )
+    ```
+    :::
 > [!NOTE]
 > You can subscribe to an event of a specific instance of an element in its scope. Then you need to pass event using the on argument. 
-::: details Example
-```python
-(element ButtonPrimary
-    (scope
-        (bind label "$event.localX+ $event.localY" init=false on='evBtnLeftClickEvent')
-    )
-)
-```
-:::
+> ::: details Example
+> ```python
+> (element ButtonPrimary
+>     (scope
+>         (bind label "$event.localX+ $event.localY" init=false on='evBtnLeftClickEvent')
+>     )
+> )
+> ```
+> :::
+
 > [!NOTE]
 > You can control the execution of synchronization through the nested `enabled` construct , which takes an expression that must evaluate to a Boolean value. In turn, if you need to subscribe a change in `enabled` to an event or expression, you need to use `bind`.
-::: details Example
-```python
-(scope
-    # Declare event
-    (event changedToogle)
-  
-    # Declare a boolean variable - condition for disabling/enabling the condition for executing the bind
-    (var toogleFlag:bool = true)
-    (bind toogleFlag "!toogleFlag" watch=false init=false (event "changedToogle"))
-)
-
-# Create a button, upon clicking which will display the mouse coordinate
-(element ButtonPrimary
-    (scope
-        # Subscribe the scope variable label to synchronization upon clicking the button. The subscription execution condition is if toogleFlag is true
-        (bind label "'localX: ' + $event.localX" init=false on='evBtnLeftClickEvent' (bind enabled "toogleFlag"))
-    )
-)
-
-# Create a button, upon clicking which an event will be dispatched that toggles the toogleFlag flag
-(element ButtonPrimary
-    (scope
-        (bind label "'toogleFlag: ' + toogleFlag")
-        (dispatch changedToogle on='evBtnLeftClickEvent')
-    )
-)
-```
-:::
+> ::: details Example
+> ```python
+> (scope
+>     # Declare event
+>     (event changedToogle)
+>   
+>     # Declare a boolean variable - condition for disabling/enabling the condition for executing the bind
+>     (var toogleFlag:bool = true)
+>     (bind toogleFlag "!toogleFlag" watch=false init=false (event "changedToogle"))
+> )
+> 
+> # Create a button, upon clicking which will display the mouse coordinate
+> (element ButtonPrimary
+>     (scope
+>         # Subscribe the scope variable label to synchronization upon clicking the button. The subscription execution condition is if toogleFlag is true
+>         (bind label "'localX: ' + $event.localX" init=false on='evBtnLeftClickEvent' (bind enabled "toogleFlag"))
+>     )
+> )
+> 
+> # Create a button, upon clicking which an event will be dispatched that toggles the toogleFlag flag
+> (element ButtonPrimary
+>     (scope
+>         (bind label "'toogleFlag: ' + toogleFlag")
+>         (dispatch changedToogle on='evBtnLeftClickEvent')
+>     )
+> )
+> ```
+> :::
 
 ### Incremental counter by event
 
-| Parameter | Description |
-| :-------: | :---------: |
-| watch | whether or not to subscribe to the event of changing variables in an expression |
-| init | whether to calculate the expression when creating a variable |
+`watch` and `init` parameters of `bind` block:
+- `watch` - whether or not to subscribe to the event of changing variables in an expression
+- `init` - whether to calculate the expression when creating a variable
 
 ::: details Example
 ```python
@@ -184,7 +178,7 @@ Used to call a method on a target object based on conditions (event, argument ch
 )
 ```
 
-Thus, when the stateFrame variable changes, the gotoAndPlay method will be called. 
+Thus, when `stateFrame` variable changes, `gotoAndPlay` method will be called. 
 
 ::: details Another example of calling methods on controllers
 ```python
@@ -198,7 +192,7 @@ The behavior of the `event`, `enabled` parameters is the same as that of the `bi
 
 ## Dispatch
 
-Broadcasting an event on an event that is generated by scaleform or core c++ unbound. Before broadcasting an event, it must be declared in scope.
+Broadcast an event on an event that is generated by scaleform or core c++ unbound. Before broadcasting an event, it must be declared in scope.
 
 ### Usage
 
@@ -268,40 +262,65 @@ UBTRACE: {param:100}
 
 ### Direction of event propagation
 
-The direction of event propagation can be controlled by the dir parameter. Three values are supported:
-- 0 - event propagates inside element. By default dir=0.
-- 1 - event propagates from child to parent.
-
-::: details
-```python
-(def element TestView() layout = true  
-    (scope
-       (event onClick)
-    )
-  
-    (element ChildElement)
-  
-    (tf
-        (class HeroTitleYellowTextStyle)
-        (text = 'default text')
-        (bind text "$event.key" init=false (event "onClick"))
-    )
-)
-  
-(def element ChildElement() layout=true
-    (scope
+The direction of event propagation can be controlled by `dir` parameter. Three values are supported:
+- 0 - `event` propagates inside element. By default `dir=0`.
+- 1 - `event` propagates from child to parent.
+    ::: details
+    ```python
+    (def element TestView() layout = true  
+        (scope
         (event onClick)
+        )
+    
+        (element ChildElement)
+    
+        (tf
+            (class HeroTitleYellowTextStyle)
+            (text = 'default text')
+            (bind text "$event.key" init=false (event "onClick"))
+        )
     )
-    (element ButtonPrimary
-        (dispatch onClick args={key: 100} dir=1 on='click')
+    
+    (def element ChildElement() layout=true
+        (scope
+            (event onClick)
+        )
+        (element ButtonPrimary
+            (dispatch onClick args={key: 100} dir=1 on='click')
+        )
     )
-)
-```
-:::
-
-> [!NOTE]
-> It is important to remember that before an event can be used, it must be declared in the scope. Even though the event is already declared in the scope definition of the ChildElement element, it must also be declared in the TestView.
-- 2 - event propagates from parent to child.
+    ```
+    :::
+    > [!NOTE]
+    > It is important to remember that before an event can be used, it must be declared in the scope. Even though the event is already declared in the scope definition of the ChildElement element, it must also be declared in the TestView.
+- 2 - `event` propagates from parent to child.
+    ::: details Example
+    ```python
+    (def element TestView() layout = true  
+        (scope
+        (event onClick)
+        )
+    
+        (element ChildElement)
+    
+        (element ButtonPrimary
+            (dispatch onClick args={key: 100} dir=2 on='click')
+        )
+    )
+    
+    (def element ChildElement() layout=true
+        (scope
+            (event onClick)
+        )
+    
+        (tf
+            (class HeroTitleYellowTextStyle)
+            (text = 'default text')
+            (bind text "$event.key" init=false (event "onClick"))
+        )
+    )
+    ```
+    :::
 
 ### Separation of events
 
@@ -340,7 +359,7 @@ In the examples given, the nested element propagates the event and there was onl
 ```
 :::
 
-There are 4 ChildElement instances on the stage, and each of them broadcasts an onClick event. The text block will catch events from each element. Of course, you can check the button id in the bind expression. But you can also re-patch events from the scope of the nested element to a unique event of the parent.
+There are 4 `ChildElement` instances on the stage, and each of them broadcasts `onClick` event. The text block will catch events from each element. Of course, you can check the button `id` in the bind expression. But you can also re-patch events from the scope of the nested element to a unique event of the parent.
 
 ::: details Example
 ```python
@@ -379,11 +398,11 @@ There are 4 ChildElement instances on the stage, and each of them broadcasts an 
 ```
 :::
 
-That is, the onClickChild1 event is synchronized with the onClick event only for the button with id=0, so the text field of the text block will be updated only when you click on this button.
+That is, `onClickChild1` event is synchronized with `onClick` event only for the button with `id=0`, so the text field of the text block will be updated only when you click on this button.
 
 ### Dispatch when enabled=true
 
-The event does not fire when enabled is switched to true, but continues to fire when trigger is switched to true.
+The event does not fire when `enabled` is switched to `true`, but continues to fire when trigger is switched to `true`.
 
 ::: details Example
 ```python
@@ -407,8 +426,8 @@ The event does not fire when enabled is switched to true, but continues to fire 
   
     (dispatch evMouseClick on='click')
   
-    (dispatch evTestEvent (bind enabled "count%2 == 0" )) # не будет срабатывать
-    (dispatch evTestTriggerEvent (bind trigger "count" )) # будет срабатывать
+    (dispatch evTestEvent (bind enabled "count%2 == 0" ))   # не будет срабатывать
+    (dispatch evTestTriggerEvent (bind trigger "count" ))   # будет срабатывать
   
     (macro trace "'count: ' + count")
     (macro trace "'must always be zero:' + testCount")
@@ -426,4 +445,4 @@ A side effect of the changes to dispatch is that the expression change event is 
 (dispatch evUpdateMouse (bind enabled "isActive") (bind trigger "isActive"))
 ```
 :::
-With this order of bindings, enabled will be recalculated first and the event will only fire when isActive=true.
+With this order of bindings, enabled will be recalculated first and the event will only fire when `isActive=true`.

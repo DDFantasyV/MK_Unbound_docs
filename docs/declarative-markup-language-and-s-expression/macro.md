@@ -2,7 +2,7 @@
 
 [[toc]]
 
-A macro is a named parameterized fragment of markup that is substituted into the call location at the parsing stage. Macros are implemented at the AST (Abstract syntax tree) level. 
+Macro is a named parameterized fragment of markup that is substituted into the call location at the parsing stage. Macros are implemented at the AST (Abstract syntax tree) level. 
 
 ## Usage
 
